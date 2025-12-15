@@ -1,0 +1,20 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Reflection.Metadata;
+using System.Text;
+using ClubMembershipApplication.Models;
+
+namespace ClubMembershipApplication.Data
+{
+    public class ClubMembershipDbContext: DbContext
+    {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite($"Data Source={AppDomain.CurrentDomain.BaseDirectory}\\ClubMembershipDb.db");
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        public DbSet<User> Users { get; set; }
+    }
+}
