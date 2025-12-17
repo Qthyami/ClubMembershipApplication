@@ -1,4 +1,5 @@
-﻿using FieldValidatorAPI;
+﻿using ClubMembershipApplication.Data;
+using FieldValidatorAPI;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,6 +26,9 @@ namespace ClubMembershipApplication.FieldValidators
 
         string[] _fieldArray = null;
 
+        IRegister _register = null;
+
+
         public string[] FieldArray
         {
             get
@@ -45,9 +49,15 @@ namespace ClubMembershipApplication.FieldValidators
             }
         }
 
+        public UserRegistrationValidator(IRegister register)
+        {
+            _register = register;
+        }
+
         public void InitializeFieldValidators()
         {
             _fieldValidatorDel = new FieldValidatorDel(ValidateField);
+            _emailExistsDel = new EmailExistsDel(_register.EmailExists);
 
             _requiredValidDel = CommonFieldValidatorFunctions.RequiredFieldValidDel;
             _stringLenthValidDel = CommonFieldValidatorFunctions.StringLengthFieldValidDel;
@@ -73,6 +83,9 @@ namespace ClubMembershipApplication.FieldValidators
                     : "";
                     fieldInvalidMessage = (fieldInvalidMessage == "" && _patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Email_Address_RegEx_Pattern))
                         ? $"You must enter a valid email address{Environment.NewLine}"
+                        : fieldInvalidMessage;
+                    fieldInvalidMessage = (fieldInvalidMessage == "" && _emailExistsDel(fieldValue)) 
+                        ? $"This email address already exists. Please try again{Environment.NewLine}" 
                         : fieldInvalidMessage;
                     break;
 
@@ -130,16 +143,16 @@ namespace ClubMembershipApplication.FieldValidators
                     break;
 
                 case FieldConstants.UserRegistrationField.AddressFirstLine:
-                    fieldInvalidMessage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field:{Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistrationField)}{Environment.NewLine}" : "";
+                    fieldInvalidMessage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field:{Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}" : "";
                     break;
                 case FieldConstants.UserRegistrationField.AddressSecondLine:
-                    fieldInvalidMessage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field:{Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistrationField)}{Environment.NewLine}" : "";
+                    fieldInvalidMessage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field:{Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}" : "";
                     break;
                 case FieldConstants.UserRegistrationField.AddressCity:
-                    fieldInvalidMessage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field:{Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistrationField)}{Environment.NewLine}" : "";
+                    fieldInvalidMessage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field:{Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}" : "";
                     break;
                 case FieldConstants.UserRegistrationField.PostalCode:
-                    fieldInvalidMessage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field:{Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistrationField)}{Environment.NewLine}" : "";
+                    fieldInvalidMessage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field:{Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}" : "";
                     fieldInvalidMessage = (fieldInvalidMessage == "" && !_patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Uk_Post_Code_RegEx_Pattern)) ? $"You did not enter a valid UK post code{Environment.NewLine}" : fieldInvalidMessage;
                     break;
                 default:
