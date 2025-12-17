@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="ClubMembershipApplication/ClubMembershipApplication.csproj" />
+  <Project Path="FieldValidatorAPI/FieldValidatorAPI.csproj" Id="d8af374a-c000-42eb-8bc0-e38617ea5874" />
 </Solution>
