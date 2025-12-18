@@ -81,7 +81,7 @@ namespace ClubMembershipApplication.FieldValidators
                     fieldInvalidMessage = (!_requiredValidDel(fieldValue))
                     ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}"
                     : "";
-                    fieldInvalidMessage = (fieldInvalidMessage == "" && _patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Email_Address_RegEx_Pattern))
+                    fieldInvalidMessage = (fieldInvalidMessage == "" && !_patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Email_Address_RegEx_Pattern))
                         ? $"You must enter a valid email address{Environment.NewLine}"
                         : fieldInvalidMessage;
                     fieldInvalidMessage = (fieldInvalidMessage == "" && _emailExistsDel(fieldValue)) 
@@ -93,7 +93,7 @@ namespace ClubMembershipApplication.FieldValidators
                     fieldInvalidMessage = (!_requiredValidDel(fieldValue))
                         ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}"
                         : "";
-                    fieldInvalidMessage = (fieldInvalidMessage == "" && _stringLenthValidDel(fieldValue, LastName_Min_Length, LastName_Max_Length))
+                    fieldInvalidMessage = (fieldInvalidMessage == "" && !_stringLenthValidDel(fieldValue, LastName_Min_Length, LastName_Max_Length))
                         ? $"The length for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)} must be between {FirstName_Min_Length} and {FirstName_Max_Length}{Environment.NewLine}"
                         : fieldInvalidMessage;
                     break;
@@ -102,7 +102,7 @@ namespace ClubMembershipApplication.FieldValidators
                     fieldInvalidMessage = (!_requiredValidDel(fieldValue))
                         ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}"
                         : "";
-                    fieldInvalidMessage = (fieldInvalidMessage == "" && _stringLenthValidDel(fieldValue, LastName_Min_Length, LastName_Max_Length))
+                    fieldInvalidMessage = (fieldInvalidMessage == "" && !_stringLenthValidDel(fieldValue, LastName_Min_Length, LastName_Max_Length))
                         ? $"The length for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)} must be between {LastName_Min_Length} and {LastName_Max_Length}{Environment.NewLine}"
                         : fieldInvalidMessage;
                     break;
@@ -111,24 +111,21 @@ namespace ClubMembershipApplication.FieldValidators
                     fieldInvalidMessage = (!_requiredValidDel(fieldValue))
                         ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}"
                         : "";
-                    fieldInvalidMessage = (fieldInvalidMessage == "" && _patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Strong_Password_RegEx_Pattern))
+                    fieldInvalidMessage = (fieldInvalidMessage == "" && !_patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Strong_Password_RegEx_Pattern))
                         ? $"Your password must contain at least 1 small-case letter, 1 capital letter, 1 special character and the length should be between 6 - 10 characters{Environment.NewLine}"
                         : fieldInvalidMessage;
                     break;
+
                 case FieldConstants.UserRegistrationField.PasswordCompare:
-                    fieldInvalidMessage = (!_requiredValidDel(fieldValue))
-                        ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}"
-                        : "";
-                    fieldInvalidMessage = (fieldInvalidMessage == "" && _compareFieldsValidDel(fieldValue, fieldArray[(int)FieldConstants.UserRegistrationField.Password]))
-                        ?  $"Your entry did not match your password {Environment.NewLine}"
-                        : fieldInvalidMessage;
+                    fieldInvalidMessage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field:{Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}" : "";
+                    fieldInvalidMessage = (fieldInvalidMessage == "" && !_compareFieldsValidDel(fieldValue, fieldArray[(int)FieldConstants.UserRegistrationField.Password])) ? $"Your entry did not match your password{Environment.NewLine}" : fieldInvalidMessage;
                     break;
 
                 case FieldConstants.UserRegistrationField.DateOfBirth:
                     fieldInvalidMessage = (!_requiredValidDel(fieldValue))
                         ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}"
                         : "";
-                    fieldInvalidMessage = (fieldInvalidMessage == "" && _dateValidDel(fieldValue, out DateTime v))
+                    fieldInvalidMessage = (fieldInvalidMessage == "" && !_dateValidDel(fieldValue, out DateTime v))
                         ? $"You did not enter a valid date{ Environment.NewLine}"
                         : fieldInvalidMessage;
                     break;
@@ -137,7 +134,7 @@ namespace ClubMembershipApplication.FieldValidators
                     fieldInvalidMessage = (!_requiredValidDel(fieldValue))
                     ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistarionField)}{Environment.NewLine}"
                     : "";
-                    fieldInvalidMessage = (fieldInvalidMessage == "" && _patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Uk_PhoneNumber_RegEx_Pattern))
+                    fieldInvalidMessage = (fieldInvalidMessage == "" && !_patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Uk_PhoneNumber_RegEx_Pattern))
                         ? $"You must enter a valid phone number{Environment.NewLine}"
                         : fieldInvalidMessage;
                     break;
