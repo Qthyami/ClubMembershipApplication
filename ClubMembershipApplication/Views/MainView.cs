@@ -35,6 +35,8 @@ namespace ClubMembershipApplication.Views
             {
                 Console.Clear();
                 Console.WriteLine("Goodbye");
+                Console.WriteLine("НЕУДАЧНИК");
+
                 Console.ReadKey();
             }
         }
